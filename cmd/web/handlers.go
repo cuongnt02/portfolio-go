@@ -1,26 +1,100 @@
-package main;
+package main
 
 import (
-    "net/http"
+	"fmt"
+	"html/template"
+	"net/http"
 )
 
-func home(w http.ResponseWriter, r *http.Request) {
+func (app *application) home(w http.ResponseWriter, r *http.Request) {
     if r.URL.Path != "/" {
-        http.NotFound(w, r)
+        app.notFound(w)
         return
     }
-    w.Write([]byte("HELLO WORLD"))
-}
 
-func about(w http.ResponseWriter, r *http.Request) {
-    w.Write([]byte("ABOUT PAGE"))
-}
+    files := []string {
+        "./ui/html/base.html",
+        "./ui/html/partials/nav.html",
+        "./ui/html/partials/footer.html",
+        "./ui/html/pages/index.html",
+    }
 
-func threads(w http.ResponseWriter, r*http.Request) {
-    if r.Method != "POST" {
-        w.Header().Set("Allow", "POST")
-        http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
+    ts, err := template.ParseFiles(files...)
+    if err != nil {
+        app.serverError(w, err)
         return
     }
-    w.Write([]byte("THREADS"))
+
+    err = ts.ExecuteTemplate(w, "base", nil)
+    if err != nil {
+        app.serverError(w, err)
+    }
+}
+
+func (app *application) about(w http.ResponseWriter, r *http.Request) {
+
+    files := []string {
+        "./ui/html/base.html",
+        "./ui/html/partials/nav.html",
+        "./ui/html/partials/footer.html",
+        "./ui/html/pages/about.html",
+    }
+
+    ts, err := template.ParseFiles(files...)
+
+    if err != nil {
+        app.serverError(w, err)
+        return
+    }
+
+    err = ts.ExecuteTemplate(w, "base", nil)
+    if err != nil {
+        app.serverError(w, err)
+    }
+
+}
+
+func (app *application) thread(w http.ResponseWriter, r*http.Request) {
+    
+
+
+    files := []string {
+        "./ui/html/base.html",
+        "./ui/html/partials/nav.html",
+        "./ui/html/partials/footer.html",
+        "./ui/html/pages/threads.html",
+    }
+
+    ts, err := template.ParseFiles(files...)
+
+    if err != nil {
+        app.serverError(w, err)
+    }
+
+    err = ts.ExecuteTemplate(w, "base", nil)
+
+    if err != nil {
+        app.serverError(w, err)
+    }
+}
+
+func (app *application) createThread(w http.ResponseWriter, r *http.Request) {
+
+    if r.Method != http.MethodPost {
+        w.Header().Set("Allow", http.MethodPost)
+        app.clientError(w, http.StatusMethodNotAllowed)
+        return
+    }
+
+    name := "Alcohol"
+
+    id, err := app.threads.Insert(name)
+
+    if err != nil {
+        app.serverError(w, err)
+        return
+    }
+
+    http.Redirect(w, r, fmt.Sprintf("/thread/view?id=%d", id), http.StatusSeeOther)
+
 }

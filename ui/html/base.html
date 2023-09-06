@@ -1,0 +1,24 @@
+{{define "base"}}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <title>{{template "title" .}} - Jforum</title>
+        <link rel="shortcut icon" type="image/x-icon" href="/static/img/orange-juice.ico" />
+        {{template "css" .}}
+    </head>
+    <body>
+        <header>
+            {{template "nav" .}}
+        </header>
+        <aside>
+        </aside>
+        <main>
+            {{template "main" .}}
+        <footer>
+            {{template "footer" .}}
+        </footer>
+        </main>
+    </body>
+</html>
+{{end}}
