@@ -3,6 +3,7 @@ package models
 import (
     "database/sql"
     "time"
+    "errors"
 )
 
 type Thread struct {
@@ -35,9 +36,56 @@ func (m *ThreadModel) Insert(name string) (int, error) {
 }
 
 func (m *ThreadModel) Get(id int) (*Thread, error) {
-    return nil, nil
+    stmt := `SELECT id, name, created_time, updated_time FROM threads
+    WHERE id=?`
+
+
+    t := &Thread{}
+
+    err := m.DB.QueryRow(stmt, id).Scan(&t.ID, &t.Name, &t.Created, &t.Updated)
+
+    if err != nil {
+        
+        if errors.Is(err, sql.ErrNoRows) {
+            return nil, ErrNoRecord
+        } else {
+            return nil, err
+        }
+    }
+    
+    return t, nil
 }
 
-func (m *ThreadModel) Recent() ([]*Thread, error) {
-    return nil, nil
+func (m *ThreadModel) GetAll() ([]*Thread, error) {
+    stmt := `SELECT id, name, created_time, updated_time FROM threads`
+
+    rows, err := m.DB.Query(stmt)
+    if err != nil {
+        return nil, err
+    }
+
+    defer rows.Close()
+
+
+    threads := []*Thread{}
+
+    for rows.Next() {
+        t := &Thread{}
+
+        err = rows.Scan(&t.ID, &t.Name, &t.Created, &t.Updated)
+
+        if err != nil {
+            return nil, err
+        }
+
+        threads = append(threads, t)
+    }
+
+    if err = rows.Err(); err != nil {
+        return nil, err
+    }
+
+
+    return threads, nil
 }
+

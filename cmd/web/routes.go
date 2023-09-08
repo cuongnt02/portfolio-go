@@ -16,7 +16,9 @@ func (app *application) routes() *http.ServeMux {
 
     mux.HandleFunc("/", app.home)
     mux.HandleFunc("/about", app.about)
-    mux.HandleFunc("/threads", app.createThread)
+    mux.HandleFunc("/threads/create", app.createThread)
+    mux.HandleFunc("/threads/view", app.viewThread)
+    mux.HandleFunc("/threads/all", app.viewAllThread)
     return mux
 }
-
+ 

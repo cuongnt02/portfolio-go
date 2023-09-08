@@ -6,21 +6,23 @@ import (
 	"log"
 	"net/http"
 	"os"
-    
-    "jforum.cuongnt02.org/internal/models"
+	"html/template"
+
 	_ "github.com/go-sql-driver/mysql"
+	"jforum.cuongnt02.org/internal/models"
 )
 
 type application struct {
     errorLog *log.Logger
     infoLog *log.Logger
     threads *models.ThreadModel
+    templateCache map[string]*template.Template
 }
 
 func main() {
     addr := flag.String("addr", ":4000", "HTTP Network Address") 
 
-    dsn := flag.String("dsn", "web:030811@/jforum?parseTime=true", "MYSQL data source name")
+    dsn := flag.String("dsn", "hackerlor:030811@/jforum?parseTime=true", "MYSQL data source name")
     flag.Parse()
 
     infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
@@ -33,10 +35,16 @@ func main() {
 
     defer db.Close()
 
+    templateCache, err := newTemplateCache()
+    if err != nil {
+        errorLog.Fatal(err)
+    }
+
     app := &application {
         errorLog: errorLog,
         infoLog: infoLog,
         threads: &models.ThreadModel{DB: db},
+        templateCache: templateCache,
     }
 
 
