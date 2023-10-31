@@ -14,7 +14,7 @@ func main() {
     
     mux := http.NewServeMux()
     mux.HandleFunc("/", home)
-    port := os.Getenv("PORT")
+    port := ":" + os.Getenv("PORT")
     if port == "" {
         log.Println("Using default port: 8000")
         port = ":8000"
