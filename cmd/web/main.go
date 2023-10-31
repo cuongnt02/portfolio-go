@@ -6,16 +6,14 @@ import (
 	"os"
 )
 
-func home(w http.ResponseWriter, r *http.Request) {
-    w.Write([]byte("Hello From Heroku"))
-}
 
 func main() {
     
     mux := http.NewServeMux()
     mux.HandleFunc("/", home)
+    mux.HandleFunc("/notes", notes)
     port := ":" + os.Getenv("PORT")
-    if port == "" {
+    if port == ":" {
         log.Println("Using default port: 8000")
         port = ":8000"
     }
