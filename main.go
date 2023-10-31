@@ -17,7 +17,7 @@ func main() {
     port := os.Getenv("PORT")
     if port == "" {
         log.Println("Using default port: 8000")
-        port = "8000"
+        port = ":8000"
     }
 
     log.Print("Starting server on: 8000")
