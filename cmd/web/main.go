@@ -16,7 +16,7 @@ type application struct {
 
 func main() {
     
-    addr := os.Getenv("PORT")
+    addr := ":" +  os.Getenv("PORT")
 
     flag.Parse()
 
