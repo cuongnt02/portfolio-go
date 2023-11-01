@@ -2,13 +2,12 @@ package main
 
 import (
 	"html/template"
-	"log"
 	"net/http"
 )
 
-func home(w http.ResponseWriter, r *http.Request) {
+func (app *application) home(w http.ResponseWriter, r *http.Request) {
     if r.URL.Path != "/" {
-        http.NotFound(w, r)
+        app.notFound(w)
         return
     }
 
@@ -19,21 +18,19 @@ func home(w http.ResponseWriter, r *http.Request) {
 
     ts, err := template.ParseFiles(files...)
     if err != nil {
-        log.Print(err.Error());
-        http.Error(w, "Internal Server Error", 500)
+        app.serverError(w, err)
         return
     }
 
     ts.ExecuteTemplate(w, "base", nil)
     if err != nil {
-        log.Print(err.Error())
-        http.Error(w, "Internal Server Error", 500)
+        app.serverError(w, err)
     }
 }
 
-func notes(w http.ResponseWriter, r *http.Request) {
+func (app *application) notes(w http.ResponseWriter, r *http.Request) {
     if r.URL.Path != "/notes" {
-        http.NotFound(w, r)
+        app.notFound(w)
         return
     }
     w.Write([]byte("Notes Page"))
