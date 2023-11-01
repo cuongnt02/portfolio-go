@@ -16,7 +16,7 @@ type application struct {
 
 func main() {
     
-    addr := flag.String("addr", ":8000", "HTTP Network Address");
+    addr := os.Getenv("PORT")
 
     flag.Parse()
 
@@ -31,12 +31,12 @@ func main() {
 
 
     srv := &http.Server {
-        Addr: *addr,
+        Addr: addr,
         ErrorLog: errorLog,
         Handler: app.routes(),
     }
 
-    infoLog.Printf("Starting server on: %s", *addr)
+    infoLog.Printf("Starting server on: %s", addr)
     err := srv.ListenAndServe()
     errorLog.Fatal(err)
 
