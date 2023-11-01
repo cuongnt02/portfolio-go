@@ -1,1 +1,1 @@
-web: go run ./cmd/web -addr=$PORT
+web: go run ./cmd/web -addr=:$PORT
