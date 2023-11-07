@@ -10,12 +10,7 @@
 -- │updated_date datetime│
 -- └─────────────────────┘
 
-DROP DATABASE IF EXISTS notetaker;
-
-CREATE DATABASE notetaker;
-
-\c notetaker;
-
+DROP TABLE IF EXISTS notes;
 CREATE SEQUENCE notes_id_seq;
 CREATE TABLE notes (
     id  int PRIMARY KEY NOT NULL DEFAULT nextval('notes_id_seq'),
@@ -28,6 +23,7 @@ CREATE TABLE notes (
 ALTER SEQUENCE notes_id_seq
 OWNED BY notes.id;
 
+DROP TABLE IF EXISTS tags;
 CREATE SEQUENCE tags_id_seq;
 CREATE TABLE tags (
     id int PRIMARY KEY,

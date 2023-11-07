@@ -26,9 +26,6 @@ func OpenDB(dsn string) (*sql.DB, error) {
     if err != nil {
         return nil, err
     }
-    if err = db.Ping(); err != nil {
-        return nil, err
-    }
     return db, nil
 }
 
@@ -40,7 +37,7 @@ func main() {
         addr = ":8000"
     }
 
-    dsn := "user=postgres dbname=notetaker sslmode=disable"
+    dsn := os.Getenv("DATABASE_URL")
 
 
     infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
