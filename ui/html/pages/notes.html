@@ -1,0 +1,25 @@
+{{ define "title" }}Notes{{end}}
+{{ define "main" }}
+<div class="notes">
+    {{ if .Notes }}
+    <table class="pure-table pure-table-horizontal">
+        <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Created</th>
+            <th>Updated</th>
+        </tr>
+        {{ range .Notes }}
+        <tr>
+            <td>{{.ID}}</td>
+            <td><a href="/notes/view/{{.ID}}" alt="Title: {{.Title}}">{{.Title}}</a></td>
+            <td>{{ humanDate .CreatedDate}}</td>
+            <td>{{ humanDate .UpdatedDate}}</td>
+        </tr>
+        {{ end }}
+    </table>
+    {{else}}
+        <p>There are no notes here yet!</p>
+    {{end}}
+</div>
+{{ end }}

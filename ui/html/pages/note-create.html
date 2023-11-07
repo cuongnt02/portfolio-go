@@ -1,0 +1,19 @@
+{{ define "title" }}Create Note {{ end }}
+{{ define "main" }}
+<form action="/notes/create" method="post" class="pure-form pure-form-stacked">
+    <fieldset>
+        <legend>Create Note</legend>
+        <label for="title">Title</label>
+        {{with .Form.FieldErrors.title}}
+        <span class="text-error">{{.}}</span>
+        {{end}}
+        <input type="text" name="title" value="{{.Form.Title}}" placeholder="Title..."/>
+        <label for="content">Content</label>
+        {{with .Form.FieldErrors.content}}
+        <span class="text-error">{{.}}</span>
+        {{end}}
+        <textarea placeholder="Content..." name="content">{{.Form.Content}}</textarea>
+        <button type="submit" class="pure-button pure-button-primary">Save</button>
+    </fieldset>
+</form>
+{{ end }}

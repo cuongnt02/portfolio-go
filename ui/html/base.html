@@ -4,15 +4,18 @@
     <head>
         <meta charset="UTF-8" />
         <title>{{ template "title" . }}</title>
+        <link href="/static/pure.css" rel="stylesheet"/>
     </head>
     <body>
         <header>
-            <h1 a href="/">NoteTaker</h1>
+            {{template "nav" .}}
         </header>
         <main>
             {{ template "main" .}}
         </main>
-        <footer>Powered by <a href="https://golang.org">Go</a> </footer>
+        <footer>
+            {{template "footer" .}}
+        </footer>
     </body>
 </html>
 {{ end }}
