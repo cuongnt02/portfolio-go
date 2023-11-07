@@ -40,7 +40,7 @@ func main() {
         addr = ":8000"
     }
 
-    dsn := "user=postgres dbname=notetaker sslmode=disable"
+    dsn := os.Getenv("DATABASE_URL")
 
 
     infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
