@@ -23,7 +23,7 @@
 
       var Module = {
         locateFile : (path, prefix) => {
-            if (path.endsWith('.data')) return "http://localhost:8000/static/gamedata/pong/" + path;
+            if (path.endsWith('.data')) return "/static/gamedata/pong/" + path;
             return prefix + path;
         },
         canvas: (() => {

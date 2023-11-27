@@ -4,8 +4,9 @@
     <head>
         <meta charset="UTF-8" />
         <title>{{ template "title" . }}</title>
-
-        {{ template "styles" .}}
+        <style>
+            {{ template "styles" .}}
+        </style>
         <link href="/static/css/pure.css" rel="stylesheet"/>
     </head>
     <body>
