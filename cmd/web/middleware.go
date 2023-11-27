@@ -3,11 +3,13 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"strings"
 )
 
 func secureHeaders(next http.Handler) http.Handler {
+
     return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-        w.Header().Set("Content-Security-Policy", "default-src 'self'; style-src 'self' font.googleapis.com; font-src fonts.gstatic.com")
+        //w.Header().Set("Content-Security-Policy", "default-src 'self'; style-src 'self' font.googleapis.com; font-src fonts.gstatic.com")
         w.Header().Set("Referer-Policy", "origin-when-cross-origin")
         w.Header().Set("X-Content-Type-Options", "nostiff")
         w.Header().Set("X-Frame-Options", "deny")
@@ -17,7 +19,24 @@ func secureHeaders(next http.Handler) http.Handler {
     })
 }
 
+func contentTypeHeaders(next http.Handler) http.Handler {
+
+    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+        url := r.URL.Path
+        fmt.Printf("URL_IS_JS: %v\n", strings.HasSuffix(url, ".js"))
+        if strings.HasSuffix(url, ".js") {
+            w.Header().Add("Content-Type", "application/javascript")
+        } else if strings.HasSuffix(url, ".data") || strings.HasSuffix(url, ".mem") {
+            w.Header().Add("Content-Type", "application/octet-stream")
+        } else if strings.HasSuffix(url, ".wasm") {
+            w.Header().Add("Content-Type", "application/wasm")
+        }
+        next.ServeHTTP(w, r)
+    })
+}
+
 func (app *application) logRequest(next http.Handler) http.Handler {
+
     return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
         app.infoLog.Printf("%s - %s %s %s", r.RemoteAddr, r.Proto, r.Method, r.URL.RequestURI())
 
@@ -26,6 +45,7 @@ func (app *application) logRequest(next http.Handler) http.Handler {
 }
 
 func (app *application) recoverPanic(next http.Handler) http.Handler {
+
     return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
         defer func() {
             if err:= recover(); err != nil {

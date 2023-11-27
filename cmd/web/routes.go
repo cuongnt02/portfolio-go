@@ -25,8 +25,11 @@ func (app *application) routes() http.Handler {
     router.HandlerFunc(http.MethodPost, "/notes/create", app.noteCreatePost)
     router.HandlerFunc(http.MethodGet, "/notes/view/:id", app.noteView)
     router.HandlerFunc(http.MethodGet, "/about", app.about)
+    router.HandlerFunc(http.MethodGet, "/games", app.game)
+    router.HandlerFunc(http.MethodGet, "/games/view", app.gameView)
+    
 
-    defaultChain := alice.New(app.recoverPanic, app.logRequest, secureHeaders)
+    defaultChain := alice.New(app.recoverPanic, app.logRequest, secureHeaders, contentTypeHeaders)
 
     return defaultChain.Then(router)
 }

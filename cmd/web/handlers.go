@@ -129,3 +129,14 @@ func (app *application) about(w http.ResponseWriter, r *http.Request) {
 
     app.render(w, http.StatusOK, "about.html", data)
 }
+
+func (app *application) game(w http.ResponseWriter, r *http.Request) {
+    data := app.newTemplateData(r);
+
+    app.render(w, http.StatusOK, "game.html", data)
+}
+
+func (app *application) gameView(w http.ResponseWriter, r *http.Request) {
+    data := app.newTemplateData(r);
+    app.render(w, http.StatusOK, "game-view.html", data)
+}
