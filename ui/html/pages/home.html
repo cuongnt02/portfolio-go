@@ -1,8 +1,26 @@
 {{ define "title" }}Home{{ end }}
-{{ define "styles"}}{{end}}
+{{ define "styles"}}
+<link rel="stylesheet" href="/static/css/home.css"/>
+{{end}}
 {{ define "main" }}
     <h1 class="title">
-        <div class="title-content"><span class="fade-in">HI, </span> <span class="scroll-in">MY NAME IS CUONG</span></div>
-        <div class="title-content blend-in">I'M A GAME DESIGNER / DEVELOPER</div>
+        <div class="title-content"><span class="fade-up animated">HI, </span> <span class="animated scroll-in">I'M CUONG</span></div>
+        <div class="title-content animated fade-in">I'M A GAME DESIGNER &amp; DEVELOPER</div>
     </h1>
+    <div class="latest">
+        <h2>MY LATEST WORK: PONG</h2>
+        <div class="latest-image">
+            <img src="/static/img/latest.gif" alt="latest-work-image"/>
+        </div>
+        <button>PLAY HERE</button>
+    </div>
+    <div class="works">
+        <h2>MY WORKS</h2>
+        <div class="works-list">
+            <div class="work">
+                <p>work-test</p>
+            </div>
+        </div>
+        <button>SEE MORE</button>
+    </div>
 {{ end }}

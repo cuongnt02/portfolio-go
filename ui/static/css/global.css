@@ -1,0 +1,34 @@
+@import "vars.css";
+
+@font-face {
+    font-family: "OverpassLight";
+    src: url("/static/font/Overpass-Light.ttf");
+}
+
+@font-face {
+    font-family: "OverpassBold";
+    src: url("/static/font/Overpass-Bold.ttf");
+    font-weight: bold;
+}
+
+body {
+    font-family: var(--global-font);
+    color: var(--foreground-main-color);
+    text-align: center;
+    background-color: var(--background-main-color);
+}
+
+canvas {
+    border: 1px solid black;
+    z-index: -1;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+img {
+    width: 100%;
+}
+

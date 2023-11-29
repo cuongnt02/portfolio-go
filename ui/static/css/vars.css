@@ -1,0 +1,7 @@
+:root {
+    --global-font: 'OverpassLight', Helvetica, sans-serif;
+    --global-font-bold: 'OverpassBold', Helvetica, sans-serif;
+    --background-main-color: #000000;
+    --foreground-main-color: #16ff00;
+    --background-sub-color: #0F6292;
+}

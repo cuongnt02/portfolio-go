@@ -4,15 +4,14 @@
     <head>
         <meta charset="UTF-8" />
         <title>{{ template "title" . }}</title>
-        <style>
-            {{ template "styles" .}}
-        </style>
+        {{ template "styles" .}}
         <link href="/static/css/pure.css" rel="stylesheet"/>
     </head>
     <body>
         <header>
             {{template "nav" .}}
         </header>
+        <canvas id="background-canvas"></canvas>
         <main>
             {{ template "main" .}}
         </main>
@@ -20,5 +19,6 @@
             {{template "footer" .}}
         </footer>
     </body>
+    <script defer src="/static/js/background.js"></script>
 </html>
 {{ end }}
