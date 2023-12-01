@@ -18,18 +18,22 @@ func (app *application) routes() http.Handler {
     fileServer := http.FileServer(http.Dir("./ui/static/"))
     router.Handler(http.MethodGet, "/static/*filepath", http.StripPrefix("/static", fileServer))
 
+    dynamic := alice.New(app.sessionManager.LoadAndSave)
 
-    router.HandlerFunc(http.MethodGet, "/", app.home)
-    router.HandlerFunc(http.MethodGet, "/notes", app.noteViewAll)
-    router.HandlerFunc(http.MethodGet, "/notes/create", app.noteCreate)
-    router.HandlerFunc(http.MethodPost, "/notes/create", app.noteCreatePost)
-    router.HandlerFunc(http.MethodGet, "/notes/view/:id", app.noteView)
-    router.HandlerFunc(http.MethodGet, "/about", app.about)
-    router.HandlerFunc(http.MethodGet, "/games", app.game)
-    router.HandlerFunc(http.MethodGet, "/games/view", app.gameView)
+
+    router.Handler(http.MethodGet, "/", dynamic.ThenFunc(app.home))
+    router.Handler(http.MethodGet, "/notes", dynamic.ThenFunc(app.noteViewAll))
+    router.Handler(http.MethodGet, "/notes/create", dynamic.ThenFunc(app.noteCreate))
+    router.Handler(http.MethodPost, "/notes/create", dynamic.ThenFunc(app.noteCreatePost))
+    router.Handler(http.MethodGet, "/notes/view/:id", dynamic.ThenFunc(app.noteView))
+    router.Handler(http.MethodGet, "/notes/update/:id", dynamic.ThenFunc(app.noteEdit))
+    router.Handler(http.MethodPost, "/notes/update/:id", dynamic.ThenFunc(app.noteUpdatePost))
+    router.Handler(http.MethodGet, "/about", dynamic.ThenFunc(app.about))
+    router.Handler(http.MethodGet, "/games", dynamic.ThenFunc(app.game))
+    router.Handler(http.MethodGet, "/games/view", dynamic.ThenFunc(app.gameView))
     
 
-    defaultChain := alice.New(app.recoverPanic, app.logRequest, secureHeaders, contentTypeHeaders)
+    standard := alice.New(app.recoverPanic, app.logRequest, secureHeaders, contentTypeHeaders)
 
-    return defaultChain.Then(router)
+    return standard.Then(router)
 }

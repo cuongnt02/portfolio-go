@@ -1,7 +1,7 @@
 {{ define "title" }}Create Note {{ end }}
 {{ define "styles"}}{{end}}
 {{ define "main" }}
-<form action="/notes/create" method="post" class="pure-form pure-form-stacked">
+<form action="{{ .FormActionPath }}" method="post" class="pure-form pure-form-stacked">
     <fieldset>
         <legend>Create Note</legend>
         <label for="title">Title</label>
@@ -18,3 +18,4 @@
     </fieldset>
 </form>
 {{ end }}
+{{define "scripts" }}{{end}}

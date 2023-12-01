@@ -1,0 +1,18 @@
+┌─────────────────────┐
+│notes                │          ┌─────────────┐
+├─────────────────────┤          │tags         │
+│id int               │1        n├─────────────┤
+│title string         ├──────────┤id int       │
+│content string       │          │name string  │
+│created_date datetime│          └─────────────┘
+│updated_date datetime│
+└─────────────────────┘
+
+
+┌────────────────────┐
+│session             │
+├────────────────────┤
+│token string        │
+│data blob           │
+│expires timestamp   │
+└────────────────────┘

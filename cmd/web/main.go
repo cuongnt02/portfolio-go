@@ -6,7 +6,11 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 
+	"github.com/alexedwards/scs/postgresstore"
+	"github.com/alexedwards/scs/v2"
+	"github.com/go-playground/form/v4"
 	_ "github.com/lib/pq"
 
 	"notetaker.ntc02.net/internal/models"
@@ -18,6 +22,8 @@ type application struct {
     infoLog     *log.Logger
     notes       *models.NoteModel
     templateCache map[string] *template.Template
+    formDecoder *form.Decoder
+    sessionManager *scs.SessionManager
 }
 
 func OpenDB(dsn string) (*sql.DB, error) {
@@ -55,11 +61,19 @@ func main() {
         errorLog.Fatal(err)
     }
 
+    formDecoder := form.NewDecoder()
+
+    sessionManager := scs.New()
+    sessionManager.Store = postgresstore.New(db)
+    sessionManager.Lifetime = 12 * time.Hour
+
     app := &application{
         errorLog: errorLog,
         infoLog: infoLog,
         notes: &models.NoteModel{DB: db},
         templateCache: templateCache,
+        formDecoder: formDecoder,
+        sessionManager: sessionManager,
     }
 
 

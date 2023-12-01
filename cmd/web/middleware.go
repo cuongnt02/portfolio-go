@@ -23,7 +23,6 @@ func contentTypeHeaders(next http.Handler) http.Handler {
 
     return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
         url := r.URL.Path
-        fmt.Printf("URL_IS_JS: %v\n", strings.HasSuffix(url, ".js"))
         if strings.HasSuffix(url, ".js") {
             w.Header().Add("Content-Type", "application/javascript")
         } else if strings.HasSuffix(url, ".data") || strings.HasSuffix(url, ".mem") {

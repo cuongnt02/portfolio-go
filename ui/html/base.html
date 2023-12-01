@@ -11,14 +11,16 @@
         <header>
             {{template "nav" .}}
         </header>
-        <canvas id="background-canvas"></canvas>
         <main>
+            {{with .Flash}}
+            <div class="flash">{{.}}</div>
+            {{end}}
             {{ template "main" .}}
         </main>
         <footer>
             {{template "footer" .}}
         </footer>
     </body>
-    <script defer src="/static/js/background.js"></script>
+    {{ template "scripts" .}}
 </html>
 {{ end }}

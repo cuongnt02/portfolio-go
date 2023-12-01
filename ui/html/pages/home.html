@@ -3,6 +3,7 @@
 <link rel="stylesheet" href="/static/css/home.css"/>
 {{end}}
 {{ define "main" }}
+    <canvas id="background-canvas"></canvas>
     <h1 class="title">
         <div class="title-content"><span class="fade-up animated">HI, </span> <span class="animated scroll-in">I'M CUONG</span></div>
         <div class="title-content animated fade-in">I'M A GAME DESIGNER &amp; DEVELOPER</div>
@@ -24,3 +25,6 @@
         <button>SEE MORE</button>
     </div>
 {{ end }}
+{{define "scripts" }}
+    <script defer src="/static/js/background.js"></script>
+{{end}}

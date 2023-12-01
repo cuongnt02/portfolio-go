@@ -1,14 +1,7 @@
--- DATABASE DESIGN
+-- DATABASE DESIGN MOVED TO /data/design.txt
 
--- ┌─────────────────────┐
--- │notes                │          ┌─────────────┐
--- ├─────────────────────┤          │tags         │
--- │id int               │1        n├─────────────┤
--- │title string         ├──────────┤id int       │
--- │content string       │          │name string  │
--- │created_date datetime│          └─────────────┘
--- │updated_date datetime│
--- └─────────────────────┘
+
+\c notetaker-ntc02
 
 DROP TABLE IF EXISTS notes;
 CREATE SEQUENCE notes_id_seq;
@@ -34,4 +27,12 @@ CREATE TABLE tags (
 );
 ALTER SEQUENCE tags_id_seq
 OWNED BY tags.id;
+
+
+DROP TABLE IF EXISTS sessions;
+CREATE TABLE sessions (
+    token char(43) PRIMARY KEY,
+    data bytea not null,
+    expiry timestamp not null
+);
 

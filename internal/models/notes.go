@@ -55,6 +55,19 @@ func (m *NoteModel) Get(id int) (*Note, error) {
     return s, nil
 }
 
+func (m *NoteModel) Update(title string, content string, id int)  (int, error) {
+    stmt := `UPDATE notes
+            SET (title, content, updated_date) = ($1, $2, CURRENT_TIMESTAMP)
+            WHERE id=$3 
+            RETURNING id`
+    updatedId := 0
+    err := m.DB.QueryRow(stmt, title, content, id).Scan(&updatedId)
+    if err != nil {
+        return 0, err
+    }
+    return updatedId, nil
+}
+
 func (m *NoteModel) GetAll() ([]*Note, error) {
     stmt := `SELECT id, title, content, created_date, updated_date 
             FROM notes 
