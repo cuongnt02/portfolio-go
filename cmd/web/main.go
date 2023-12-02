@@ -85,8 +85,9 @@ func main() {
         Handler: app.routes(),
     }
 
+
     infoLog.Printf("Starting server on: %s", addr)
-    err = srv.ListenAndServeTLS("./tls/fullchain.pem", "./tls/privkey.pem")
+    err = srv.ListenAndServe()
     errorLog.Fatal(err)
 
 }
