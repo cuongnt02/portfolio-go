@@ -208,3 +208,4 @@ func (app *application) gameView(w http.ResponseWriter, r *http.Request) {
     data := app.newTemplateData(r);
     app.render(w, http.StatusOK, "game-view.html", data)
 }
+
