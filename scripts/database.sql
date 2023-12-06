@@ -29,10 +29,24 @@
 --OWNED BY tags.id;
 
 
-DROP TABLE IF EXISTS sessions;
-CREATE TABLE sessions (
-    token char(43) PRIMARY KEY,
-    data bytea not null,
-    expiry timestamp not null
+--DROP TABLE IF EXISTS sessions;
+--CREATE TABLE sessions (
+--    token char(43) PRIMARY KEY,
+--    data bytea not null,
+--    expiry timestamp not null
+--);
+
+CREATE SEQUENCE users_id_seq;
+DROP TABLE IF EXISTS users;
+CREATE TABLE users (
+    id int not null primary key,
+    name varchar(255) not null,
+    email varchar(255) not null,
+    hashed_password char(60) not null,
+    created timestamp not null
 );
+ALTER SEQUENCE users_id_seq
+OWNED BY users.id;
+ALTER TABLE users ADD CONSTRAINT users_uc_email UNIQUE(email);
+
 

@@ -209,3 +209,37 @@ func (app *application) gameView(w http.ResponseWriter, r *http.Request) {
     app.render(w, http.StatusOK, "game-view.html", data)
 }
 
+type userSignupForm struct {
+    Username string `form:"username"`
+    Password string `form:"password"`
+    Email string `form:"email"`
+    validator.Validator `form:"-"`
+}
+
+func (app *application) userLogin(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintln(w, "Display Login Form Here...")
+}
+
+func (app *application) userLogoutPost(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintln(w, "End user's session Here")
+}
+
+func (app *application) userSignup(w http.ResponseWriter, r *http.Request) {
+
+    data := app.newTemplateData(r)
+    data.FormActionPath = "/user/signup"
+
+    data.Form = userSignupForm{}
+    
+    app.render(w, http.StatusOK, "user-signup.html", data)
+
+}
+
+func (app *application) userLoginPost(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintln(w, "Process Login Form Here")
+}
+
+func (app *application) userSignupPost(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintln(w, "Process Signup Form Here")
+}
+
