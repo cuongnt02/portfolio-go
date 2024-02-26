@@ -5,8 +5,19 @@
         <ul class="pure-menu-list">
             <li class="pure-menu-item">
                 <a href="/notes" alt="Note Index">VIEW</a>
+                {{if .IsAuthenticated }}
                 <a href="/notes/create" alt="Create Note">CREATE</a>
+                {{ end }}
                 <a href="/about" alt="About">ABOUT</a>
+                {{if .IsAuthenticated }}
+                <form action="/user/logout" method="post">
+                    <input type="hidden" name="csrf_token" value="{{.CSRFToken}}" />
+                    <button>LOGOUT</button>
+                </form>
+                {{else}}
+                <a href="/user/login">LOGIN</a>
+                <a href="/user/signup">SIGNUP</a>
+                {{end}}
             </li>
         </ul>
     </div>

@@ -21,8 +21,8 @@ import (
 type application struct {
     errorLog    *log.Logger
     infoLog     *log.Logger
-    notes       *models.NoteModel
-    users       *models.UserModel
+    notes       models.NoteModelInterface
+    users       models.UserModelInterface
     templateCache map[string] *template.Template
     formDecoder *form.Decoder
     sessionManager *scs.SessionManager
@@ -108,7 +108,7 @@ func main() {
 
 
     infoLog.Printf("Starting server on: %s", addr)
-    err = srv.ListenAndServe()
+    // err = srv.ListenAndServe()
     // For non heroku apps
     err = srv.ListenAndServeTLS("./tls/fullchain.pem", "./tls/privkey.pem")
     errorLog.Fatal(err)

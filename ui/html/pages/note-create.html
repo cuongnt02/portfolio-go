@@ -2,6 +2,7 @@
 {{ define "styles"}}{{end}}
 {{ define "main" }}
 <form action="{{ .FormActionPath }}" method="post" class="pure-form pure-form-stacked">
+    <input type="hidden" name="csrf_token" value="{{.CSRFToken}}"/>
     <fieldset>
         <legend>Create Note</legend>
         <label for="title">Title</label>

@@ -36,10 +36,11 @@
 --    expiry timestamp not null
 --);
 
+DROP SEQUENCE IF EXISTS users_id_seq;
 CREATE SEQUENCE users_id_seq;
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
-    id int not null primary key,
+    id int PRIMARY KEY NOT NULL DEFAULT nextval('users_id_seq'),
     name varchar(255) not null,
     email varchar(255) not null,
     hashed_password char(60) not null,

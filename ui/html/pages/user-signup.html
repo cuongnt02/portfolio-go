@@ -2,11 +2,12 @@
 {{ define "styles"}}{{end}}
 {{ define "main" }}
 <form action="{{ .FormActionPath }}" method="post" class="pure-form pure-form-stacked">
+    <input type="hidden" name="csrf_token" value="{{.CSRFToken}}" />
     <fieldset>
         <legend>Sign Up</legend>
         <div>
-            <label for="Username">Username:</label>
-            {{with .Form.FieldErrors.name}}
+            <label for="username">Username:</label>
+            {{with .Form.FieldErrors.username}}
                 <span class="text-error">{{.}}</span>
             {{end}}
             <input type="text" name="username" value="{{.Form.Username}}"/>
@@ -23,9 +24,9 @@
             {{with .Form.FieldErrors.password}}
                 <span class="text-error">{{.}}</span>
             {{end}}
-            <input type="text" name="password"/>
+            <input type="password" name="password"/>
         </div>
-        <button type="submit" class="pure-button pure-button-primary">Save</button>
+        <button type="submit" class="pure-button pure-button-primary">Signup</button>
     </fieldset>
 </form>
 {{ end }}

@@ -18,6 +18,13 @@ type NoteModel struct {
     DB *sql.DB
 }
 
+type NoteModelInterface interface {
+    Insert(title, content string) (int, error)
+    Get(id int) (*Note, error)
+    Update(title string, content string, id int)  (int, error)
+    GetAll() ([]*Note, error)
+}
+
 func (m *NoteModel) Insert(title string, content string) (int, error) {
     stmt := `INSERT INTO notes (title, content, created_date, updated_date) 
     VALUES ($1, $2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP) RETURNING id`
