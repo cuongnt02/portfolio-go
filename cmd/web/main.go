@@ -45,7 +45,7 @@ func main() {
         addr = ":8000"
     }
 
-    dsn := os.Getenv("DATABASE_URL")
+    dsn := "postgresql://cuongnt02:0308110299Go_@206.189.88.72:5432/cuongnt02wiki"
 
 
     infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
@@ -108,9 +108,9 @@ func main() {
 
 
     infoLog.Printf("Starting server on: %s", addr)
-    // err = srv.ListenAndServe()
+    err = srv.ListenAndServe()
     // For non heroku apps
-    err = srv.ListenAndServeTLS("./tls/fullchain.pem", "./tls/privkey.pem")
+    //err = srv.ListenAndServeTLS("./tls/fullchain.pem", "./tls/privkey.pem")
     errorLog.Fatal(err)
 
 }
