@@ -1,0 +1,7 @@
+runtime: go122
+
+main: ./cmd/web
+
+network:
+  forwarded_ports:
+    - 5432/tcp
