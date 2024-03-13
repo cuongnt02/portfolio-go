@@ -87,13 +87,10 @@ var frame = function() {
     window.requestAnimFrame(frame);
 }
 
-document.body.addEventListener("wheel", function(event) {
-    if (window.scrollY === 0 || window.scrollY >= window.scrollMaxY){
-        return;
-    }
+setInterval( function () {
     cleanUpArray();
     initParticles(config.particleNumber);
-})
+}, 2000);
 
 frame();
 
