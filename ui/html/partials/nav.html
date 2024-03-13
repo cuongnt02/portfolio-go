@@ -1,24 +1,34 @@
 {{define "nav"}}
 <nav>
     <div class="pure-menu pure-menu-horizontal">
-        <a href="/" class="pure-menu-heading pure-menu-link">NOTETAKER</a>
+        <a href="/" class="pure-menu-heading pure-menu-link">CUONGNT02</a>
         <ul class="pure-menu-list">
             <li class="pure-menu-item">
                 <a href="/notes" alt="Note Index">VIEW</a>
-                {{if .IsAuthenticated }}
+            </li>
+            {{if .IsAuthenticated }}
+            <li class="pure-menu-item">
                 <a href="/notes/create" alt="Create Note">CREATE</a>
-                {{ end }}
+            </li>
+            {{ end }}
+            <li class="pure-menu-item">
                 <a href="/about" alt="About">ABOUT</a>
-                {{if .IsAuthenticated }}
+            </li>
+            {{if .IsAuthenticated }}
+            <li class="pure-menu-item">
                 <form action="/user/logout" method="post">
                     <input type="hidden" name="csrf_token" value="{{.CSRFToken}}" />
-                    <button>LOGOUT</button>
+                    <button class="pure-button pure-button-error">LOGOUT</button>
                 </form>
-                {{else}}
-                <a href="/user/login">LOGIN</a>
-                <a href="/user/signup">SIGNUP</a>
-                {{end}}
             </li>
+            {{else}}
+            <li class="pure-menu-item">
+                <a href="/user/login">LOGIN</a>
+            </li>
+            <li class="pure-menu-item">
+                <a href="/user/signup">SIGNUP</a>
+            </li>
+            {{end}}
         </ul>
     </div>
 </nav>

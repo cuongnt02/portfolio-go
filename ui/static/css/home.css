@@ -1,26 +1,23 @@
 @import "global.css";
 
+
+main {
+    width: 70%;
+    margin: auto;
+}
+
 h1 {
     font-family: var(--global-font-bold);
+}
+
+p {
+    font-size: 1.5rem;
 }
 
 span {
     display: inline-block;
 }
 
-
-/* GIF */
-.latest-image {
-    width: 60%;
-    padding: 3rem 0rem;
-    margin: auto;
-    background-color: var(--background-sub-color);
-}
-
-.latest-image > img {
-    width: 80%; 
-    height: 80%;
-}
 
 /* TITLE CONTENT */
 
